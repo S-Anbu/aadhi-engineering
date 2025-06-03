@@ -31,7 +31,7 @@ const Login = () => {
 
       if (res.status === 200) {
         // setAlert("Logged in successfully");
-        console.log("Logged in successfully", res.data); // Log response data
+        // console.log("Logged in successfully", res.data); // Log response data
         Cookies.set("_wtll", res.data.token, {
           expires: 7, // days
           path: "/",

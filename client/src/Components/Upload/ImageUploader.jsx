@@ -13,7 +13,7 @@ const ImageUploader = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/auth', {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth`, {
           withCredentials: true,
         });
         setDashboardData(response.data);
@@ -44,12 +44,12 @@ const ImageUploader = () => {
 
     try {
       const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/anbumani/image/upload',
+        `${import.meta.env.VITE_cloud_URL}`,
         formData
       );
       setImageUrl(response.data.secure_url);
       setSelectedFile(null);
-       const resp =await axios.post(`http://localhost:3000/api/urlUpload`,{imageUrl: response.data.secure_url}, {withCredentials:true})
+       const resp =await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/urlUpload`,{imageUrl: response.data.secure_url}, {withCredentials:true})
        setError(resp.data?.message);
        return
     } catch (err) {
@@ -62,6 +62,7 @@ const ImageUploader = () => {
   const handleCancel = () => {
     setSelectedFile(null);
     setImageUrl(null);
+    setError(null);
   };
 
   if (error && !dashboardData) {
@@ -73,7 +74,7 @@ const ImageUploader = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh] px-4">
+    <div className="flex items-center justify-center min-h-[90vh] px-4">
       <div className="w-full max-w-xl bg-white shadow-lg rounded-2xl p-8 flex flex-col items-center">
         <h2 className="text-2xl font-semibold mb-6 text-center">Upload Image</h2>
 
@@ -131,7 +132,7 @@ const ImageUploader = () => {
             />
             <button
               onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-medium py-2 px-4 rounded-lg transition"
+              className="bg-gray-300 hover:bg-gray-400 text-black font-medium mt-2 py-2 px-4 rounded-lg transition"
             >
               Cancel
             </button>
