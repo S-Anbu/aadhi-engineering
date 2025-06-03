@@ -36,7 +36,7 @@ const Login = () => {
           expires: 7, // days
           path: "/",
           sameSite: "Lax", // or 'None' if needed
-          // secure: true  // uncomment for HTTPS
+          secure: true  // uncomment for HTTPS
         });
         setUserId("");
         setPassword("");
