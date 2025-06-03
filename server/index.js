@@ -9,13 +9,13 @@ const dbConnect  = require('./db.js')
 const PORT = process.env.PORT || 4000;
 const pricRroute= require('./Routes/priceRoutes.js');
 const login= require('./Routes/adminRoutes.js');
-const { upload,urlUpload } = require('./Controllers/adminContraller.js');
-const authenticate = require('./Middleware/authenticate.js');
 
 dbConnect()
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  httpOnly:true,
+  origin: 'https://aadhi-engineering-client.onrender.com',
+  // origin: process.env.FRONTEND_URL,
   credentials: true,
  
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -28,8 +28,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', pricRroute);
 app.use('/api', login);
-// app.use('/api', urlUpload);
-// app.use('/api', authenticate,upload);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
