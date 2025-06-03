@@ -13,7 +13,7 @@ const login= require('./Routes/adminRoutes.js');
 dbConnect()
 
 app.use(cors({
-  httpOnly:true,
+  
   origin: 'https://aadhi-engineering-client.onrender.com',
   // origin: process.env.FRONTEND_URL,
   credentials: true,
