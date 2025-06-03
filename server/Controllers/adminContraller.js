@@ -54,6 +54,7 @@ const login = async (req, res) => {
     // 5. Set HTTP-only cookie
     res.cookie("_wtll", newToken, {
       maxAge: 60 * 60 * 1000, // 1 hour
+       secure: true,  
     });
 
     // 6. Send success response
