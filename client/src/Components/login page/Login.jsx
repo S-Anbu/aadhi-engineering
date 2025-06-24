@@ -31,7 +31,7 @@ const Login = () => {
       );
 
       if (res.status === 200) {
-        // setAlert("Logged in successfully");
+        setAlert("Logged in successfully");
         // console.log("Logged in successfully", res.data); // Log response data
         Cookies.set("_wtll", res.data.token, {
           expires: 7, // days
@@ -41,17 +41,20 @@ const Login = () => {
         });
         setUserId("");
         setPassword("");
-        navigate("/ImageUploader");
-
-        // Consider redirecting or storing auth token
+        setTimeout(() => {
+          navigate("/ImageUploader");        
+        }, 1500);
+        return
       }
+
     } catch (error) {
+      setAlert(error.response?.data?.message || "Login failed");
       console.error("Login failed:", error, {
         message: error.message,
         status: error.response?.status,
         data: error.response?.data,
       });
-      setAlert(error.message || "Login failed");
+  
     }
   };
 

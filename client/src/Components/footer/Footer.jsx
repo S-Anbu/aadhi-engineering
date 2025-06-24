@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='text-center sm:flex items-center justify-around bg-gray-100 py-5'>
+    <div className='  text-center sm:flex items-center justify-around bg-gray-100 py-5'>
       <div className='pb-2 sm:pb-0'>
         <span>© Developed  by <span className='text-[#8e0af3] font-semibold'> Anbarasan subramani</span></span>
       </div>

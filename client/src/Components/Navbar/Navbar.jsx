@@ -131,8 +131,7 @@ function NavList({ setOpenNav }) {
     return (
         <List className=" mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
             <Typography
-                as="a"
-                href="#"
+               
                 variant="small"
                 color="blue-gray"
                 className="font-semibold"
@@ -143,7 +142,7 @@ function NavList({ setOpenNav }) {
             </Typography>
             <NavListMenu />
             <Typography
-                as="a"
+               
                 variant="small"
                 color="blue-gray"
                 className="font-semibold"
@@ -155,19 +154,19 @@ function NavList({ setOpenNav }) {
                 </a>
             </Typography>
             <Typography
-                as="a"
+                
                 variant="small"
                 color="blue-gray"
                 className="font-semibold"
             >
-                <a href="#works">
+                <Link to={'/Gallery'}>
                     <ListItem className="flex items-center gap-2 py-2 pr-4 focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
-                        works
+                        Gallery
                     </ListItem>
-                </a>
+                </Link>
             </Typography>
             <Typography
-                as="a"
+               
                 variant="small"
                 color="blue-gray"
                 className="font-semibold"
@@ -179,8 +178,7 @@ function NavList({ setOpenNav }) {
                 </a>
             </Typography>
             <Typography
-                as="a"
-                href="#"
+                
                 variant="small"
                 color="blue-gray"
                 className="font-semibold"
@@ -192,8 +190,7 @@ function NavList({ setOpenNav }) {
                 </a>
             </Typography>
             <Typography
-                as="a"
-                href="#"
+                
                 variant="small"
                 color="blue-gray"
                 className="font-semibold"
@@ -204,6 +201,7 @@ function NavList({ setOpenNav }) {
                     </ListItem>
                 </a>
             </Typography>
+            
 
         </List>
     );

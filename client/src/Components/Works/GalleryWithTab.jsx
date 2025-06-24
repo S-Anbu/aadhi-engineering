@@ -1,130 +1,115 @@
 import {
-    Tabs,
-    TabsHeader,
-    TabsBody,
-    Tab,
-    TabPanel,
-  } from "@material-tailwind/react";
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { useEffect,useState } from "react";
-   
-  export function GalleryWithTab() {
-const [dataw,setDataw]=useState([])
+export function GalleryWithTab() {
+  const [datawelding, setDatawelding] = useState([]);
+  const [dataPlumbing, setDataPlumbing] = useState([]);
+  const [dataElectrical, setDataElectrical] = useState([]);
+  const [activeTab, setActiveTab] = useState("welding");
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(()=>{
-      const fetchData = async () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
       try {
-        const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/dbimage`)
-        if (response.data) {
-          // Handle successful response
-          setDataw(response.data);
-          // console.log( response.data);
+        if (activeTab === "welding") {
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Wdbimage`);
+          setDatawelding(response.data || []);
+        } else if (activeTab === "electrical") {
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Edbimage`);
+          setDataElectrical(response.data || []);
+        } else if (activeTab === "plumbing") {
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/Pdbimage`);
+          setDataPlumbing(response.data || []);
         }
       } catch (error) {
-        
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
-    }
-    fetchData()
-    },[])
+    };
+    
+    fetchData();
+  }, [activeTab]);
 
-    const data = [
-      {
-        label: "Welding",
-        value: "Welding",
-        images: dataw.map((url) => ({ imageLink:`${import.meta.env.VITE_CLOUDINARY_BASE_URL}/${url}`})),
-        
-      },
-      {
-        label: "Electrical",
-        value: "Electrical",
-        images: [
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
-          },
-        ],
-      },
-      {
-        label: "Plumbing",
-        value: "Plumbing",
-        images: [
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
-          },
-          {
-            imageLink:
-              "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/blog5.jpg",
-          },
-          {
-            imageLink:
-              "https://material-taillwind-pro-ct-tailwind-team.vercel.app/img/content2.jpg",
-          },
-          {
-            imageLink:
-              "https://images.unsplash.com/photo-1620064916958-605375619af8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1493&q=80",
-          },
-        ],
-      },
-    ];
-   
-    return (
-      <Tabs className="p-4 pt-20" id="works" value="Welding">
-        <TabsHeader>
-          {data.map(({ label, value }) => (
-            <Tab key={value} value={value}>
-              {label}
-            </Tab>
-          ))}
-        </TabsHeader>
-        <TabsBody className="grid grid-cols-1 gap-4 ">
-          {data.map(({ value, images }) => (
-            <TabPanel
-              className="grid grid-cols-2 gap-4 md:grid-cols-3"
-              key={value}
-              value={value}
-            >
-              {images?.map(({ imageLink }, index) => (
-                <div key={index}>
-                  <img
-                    className="h-40 w-full max-w-full rounded-lg object-cover object-center"
-                    src={imageLink}
-                    alt="image-photo"
-                  />
-                </div>
-              ))}
+  const data = [
+    {
+      label: "Welding",
+      value: "welding", 
+      images: datawelding.map((url) => ({ 
+        imageLink: `${import.meta.env.VITE_CLOUDINARY_BASE_URL}/${url}` 
+      })),
+    },
+    {
+      label: "Electrical",
+      value: "electrical",
+      images: dataElectrical.map((url) => ({ 
+        imageLink: `${import.meta.env.VITE_CLOUDINARY_BASE_URL}/${url}` 
+      })),
+    },
+    {
+      label: "Plumbing",
+      value: "plumbing", 
+      images: dataPlumbing.map((url) => ({ 
+        imageLink: `${import.meta.env.VITE_CLOUDINARY_BASE_URL}/${url}` 
+      })),
+    },
+  ];
+
+  return (
+    <div id="works" className="flex items-center justify-center h-[80vh] md:h-[90vh]">
+          <Tabs value={activeTab} className="p-4 pt-20" >
+      <TabsHeader>
+        {data.map(({ label, value }) => (
+          <Tab 
+            key={value} 
+            value={value}
+            onClick={() => setActiveTab(value)} 
+            className="text-gray-800 font-semibold hover:bg-gray-200  p-4"
+          >
+            {label}
+          </Tab>
+        ))}
+      </TabsHeader>
+      <TabsBody>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-40">
+            <p>Loading...</p>
+          </div>
+        ) : (
+          data.map(({ value, images }) => (
+            <TabPanel key={value} value={value}>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 p-4">
+                {images?.length > 0 ? (
+                  images.map(({ imageLink }, index) => (
+                    <div key={index}>
+                      <img
+                        className=" h-40 md:h-80 w-full max-w-full rounded-lg object-cover object-center"
+                        src={imageLink}
+                        alt={`${value} work sample ${index}`}
+                        
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-span-3 text-center py-10">
+                    <p>No images found for {value}</p>
+                  </div>
+                )}
+              </div>
             </TabPanel>
-          ))}
-        </TabsBody>
-      </Tabs>
-    );
-  }
+          ))
+        )}
+      </TabsBody>
+    </Tabs>
+
+    </div>
+  );
+}

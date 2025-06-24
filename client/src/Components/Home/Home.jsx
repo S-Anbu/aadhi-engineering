@@ -13,7 +13,6 @@ import ElectricalServices from "../../Components/services/ElectricalServices";
 import PlumbingServices from "../../Components/services/PlumbingServices";
 import Serviceindex from "../../Components/services/Serviceindex";
 import WeldingServices from "../../Components/services/WeldingServices";
-import { GalleryWithTab } from "../../Components/Works/GalleryWithTab";
 import Price from "../../Components/Pricedetails/Price";
 import Footerindex from "../../Components/footer/Footerindex";
 
@@ -67,7 +66,6 @@ const Home = () => {
       <WeldingServices />
       <PlumbingServices />
       <Whatsapp />
-      <GalleryWithTab />
       <Serviceindex />
       <Price />
       <Contact />
