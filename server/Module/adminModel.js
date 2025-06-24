@@ -13,7 +13,27 @@ const userSchema = new mongoose.Schema({
 });
 
 
-const ImageSchema = new mongoose.Schema({
+const WeldingImageSchema = new mongoose.Schema({
+  urls: {
+    type: [String],
+     required: true,
+  },
+  uploadedAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+const plumbingImageSchema = new mongoose.Schema({
+  urls: {
+    type: [String],
+     required: true,
+  },
+  uploadedAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+const ElectricalImageSchema = new mongoose.Schema({
   urls: {
     type: [String],
      required: true,
@@ -24,8 +44,10 @@ const ImageSchema = new mongoose.Schema({
   }
 });
 
-const Imagemodel = mongoose.model('Image', ImageSchema);
+const WeldingImagemodel = mongoose.model('Welding', WeldingImageSchema);
+const plumbingImagemodel = mongoose.model('Plumbing', plumbingImageSchema);
+const ElectricalImagemodel = mongoose.model('Electrical', ElectricalImageSchema);
 
 const adminModel =  mongoose.model("admin", userSchema);
 
-module.exports = {adminModel,Imagemodel};
+module.exports = {adminModel,WeldingImagemodel,plumbingImagemodel,ElectricalImagemodel};
