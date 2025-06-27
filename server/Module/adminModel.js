@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   altPhone: String,
   isOnline:Boolean,
   token: String,
+  otp: String,
  
 });
 
@@ -43,6 +44,7 @@ const ElectricalImageSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
 
 const WeldingImagemodel = mongoose.model('Welding', WeldingImageSchema);
 const plumbingImagemodel = mongoose.model('Plumbing', plumbingImageSchema);

@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 import ImageUploader from "./Components/Upload/ImageUploader";
 import { GalleryWithTab } from "./Components/Works/GalleryWithTab";
+import Otp from "./Components/OTP/Otp";
+import ResetPassword from "./Components/Reset Password/ResetPassword";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/Gallery" element={<GalleryWithTab />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/ImageUploader" element={<ImageUploader />} />
+          <Route path="/ResetPassword" element={<ResetPassword />} />
+          <Route path="/otp" element={<Otp />} />
 
         </Routes>
         

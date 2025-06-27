@@ -60,7 +60,7 @@ const ImageUploader = () => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_cloud_URL}`, formData);
       const cloudUrl = response.data.secure_url;
-      setImageUrl(cloudUrl); // Replace preview with real uploaded URL
+      setImageUrl(cloudUrl); // uploaded URL
       setSelectedFile(null);
 
       let endpoint = '';
