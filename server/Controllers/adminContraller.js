@@ -251,11 +251,21 @@ const verifyotp = async (req, res) => {
 
     // Clear OTP after successful verification
     user.otp = null;
+    const tokenPayload = {
+      id: user._id,
+      userId: user.userId,
+    };
+    const newToken = jwt.sign(tokenPayload, process.env.SECRET_KEY, {
+      expiresIn: "1h",
+    });
+
+    user.resettoken = newToken;
     await user.save();
 
     return res.status(200).json({
       success: true,
       message: "OTP verified successfully",
+      token: newToken,
     });
   } catch (error) {
     console.error("OTP Verification Error:", error);
@@ -266,18 +276,19 @@ const verifyotp = async (req, res) => {
   }
 };
 
-const resetpassword= async (req, res) => {
-  const { userId, newPassword } = req.body;
+const resetpassword = async (req, res) => {
+  const token = req.cookies.token; // ✅ Read token from cookie
+  const { newPassword } = req.body;
 
-  if (!userId || !newPassword) {
+  if (!token || !newPassword) {
     return res.status(400).json({
       success: false,
-      message: "UserId and new password are required",
+      message: "Token and new password are required",
     });
   }
 
   try {
-    const user = await adminModel.findOne({ userId });
+    const user = await adminModel.findOne({ resettoken: token });
 
     if (!user) {
       return res.status(404).json({
@@ -286,7 +297,6 @@ const resetpassword= async (req, res) => {
       });
     }
 
-    // Hash the new password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
     await user.save();
@@ -304,4 +314,5 @@ const resetpassword= async (req, res) => {
   }
 };
 
-module.exports = { login, upload, otp, verifyotp ,resetpassword};
+
+module.exports = { login, upload, otp, verifyotp, resetpassword };

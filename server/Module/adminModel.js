@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   altPhone: String,
   isOnline:Boolean,
   token: String,
+  resettoken: String,
   otp: String,
  
 });

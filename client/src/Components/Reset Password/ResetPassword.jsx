@@ -28,15 +28,23 @@ const ResetPassword = () => {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       // Send to backend
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/resetpassword`, {
-        password: hashedPassword,
-        // optionally include user ID or token
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/resetpassword`,
+        {
+          newPassword: hashedPassword,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       if (res.data.success) {
         setAlert({ type: "success", msg: "Password reset successful!" });
       } else {
-        setAlert({ type: "error", msg: res.data.message || "Something went wrong." });
+        setAlert({
+          type: "error",
+          msg: res.data.message || "Something went wrong.",
+        });
       }
     } catch (err) {
       console.error(err);
@@ -47,12 +55,16 @@ const ResetPassword = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Reset Password</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">
+          Reset Password
+        </h2>
 
         {alert && (
           <div
             className={`text-sm text-center p-2 rounded ${
-              alert.type === "error" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
+              alert.type === "error"
+                ? "bg-red-100 text-red-700"
+                : "bg-green-100 text-green-700"
             }`}
           >
             {alert.msg}
@@ -61,7 +73,9 @@ const ResetPassword = () => {
 
         <form onSubmit={handleReset} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              New Password
+            </label>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                 <Lock size={18} />
@@ -84,7 +98,9 @@ const ResetPassword = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Confirm Password
+            </label>
             <input
               type={showPassword ? "text" : "password"}
               value={confirm}

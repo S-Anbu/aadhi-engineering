@@ -96,7 +96,7 @@ function NavListMenu() {
                 <MenuHandler>
                     <Typography as="div" variant="small" className="font-medium">
                         <ListItem
-                            className="flex items-center gap-2 py-2 pr-4 font-semibold text-gray-900  focus:text-yellow-800"
+                            className="xl:text-sm text-xs flex items-center py-2 font-semibold text-gray-900  focus:text-yellow-800"
                             selected={isMenuOpen || isMobileMenuOpen}
                             onClick={() => setIsMobileMenuOpen((cur) => !cur)}
                         >
@@ -137,7 +137,7 @@ function NavList({ setOpenNav }) {
                 className="font-semibold"
             >
                 <Link to="/" >
-                <ListItem className="flex items-center gap-2 py-2 pr-4  focus:text-yellow-800 " onClick={() => setOpenNav(false)} >HOME</ListItem>
+                <ListItem className="xl:text-sm text-xs flex items-center px-1 py-2   focus:text-yellow-800 " onClick={() => setOpenNav(false)} >HOME</ListItem>
                 </Link>
             </Typography>
             <NavListMenu />
@@ -148,7 +148,7 @@ function NavList({ setOpenNav }) {
                 className="font-semibold"
             >
                 <a href="#About">
-                    <ListItem className="flex items-center gap-2 py-2 pr-4 focus:text-yellow-800 active:text-yellow-800 " onClick={() => setOpenNav(false)}>
+                    <ListItem className="xl:text-sm text-xs flex items-center px-1 py-2  focus:text-yellow-800 active:text-yellow-800 " onClick={() => setOpenNav(false)}>
                         ABOUT
                     </ListItem>
                 </a>
@@ -160,7 +160,7 @@ function NavList({ setOpenNav }) {
                 className="font-semibold"
             >
                 <Link to={'/Gallery'}>
-                    <ListItem className="flex items-center gap-2 py-2 pr-4 focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
+                    <ListItem className="xl:text-sm text-xs flex items-center px-1  py-2  focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
                         Gallery
                     </ListItem>
                 </Link>
@@ -172,7 +172,7 @@ function NavList({ setOpenNav }) {
                 className="font-semibold"
             >
                 <a href="#Contacts">
-                    <ListItem className="flex items-center gap-2 py-2 pr-4 focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
+                    <ListItem className="xl:text-sm text-xs flex items-center px-1  py-2  focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
                         Contact
                     </ListItem>
                 </a>
@@ -184,7 +184,7 @@ function NavList({ setOpenNav }) {
                 className="font-semibold"
             >
                 <a href="#price">
-                    <ListItem className="flex items-center gap-2 py-2 pr-4 focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
+                    <ListItem className="xl:text-sm text-xs flex items-center px-1  py-2  focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
                         Price details
                     </ListItem>
                 </a>
@@ -196,7 +196,7 @@ function NavList({ setOpenNav }) {
                 className="font-semibold"
             >
                 <a href="#Payment">
-                    <ListItem className="flex items-center gap-2 py-2 pr-4 focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
+                    <ListItem className="xl:text-sm text-xs flex items-center px-1  py-2  focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
                         Payment
                     </ListItem>
                 </a>
@@ -219,6 +219,7 @@ export function NavbarIndex() {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate("/Login"); // Redirects to /login
+        setOpenNav(false);
       };
     return (
         <Navbar className="fixed top-0 z-50  mx-auto max-w-full px-4 py-2">
@@ -230,7 +231,7 @@ export function NavbarIndex() {
                     as="a"
                     href="#"
                     variant="h6"
-                    className="mr-4 cursor-pointer py-1.5 lg:ml-2 xl:text-2xl uppercase font-bold"
+                    className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-sm md:text-xl lg:text-sm 2xl:text-2xl  uppercase font-bold"
                 >
                     <Link to="/" >
                     AADHI Engineering Works
@@ -239,7 +240,7 @@ export function NavbarIndex() {
                 <div className="hidden lg:block">
                     <NavList setOpenNav={setOpenNav} />
                 </div>
-                <button onClick={handleClick} className="bg-deep-orange-300 rounded text-sm  hidden md:block md:px-3 py-1 ">@ login</button>
+                <button onClick={handleClick} className="bg-deep-orange-300 rounded text-sm md:text-sm px-2  md:px-3 py-1 ">login</button>
                 <div className="hidden gap-2 lg:flex">
                     <button>
                         <ConsultationButton />

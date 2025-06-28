@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState, useRef } from "react";
-
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 export default function Otp() {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [error, setError] = useState("");
   const inputRefs = useRef([]);
-
+  const navigate = useNavigate();
   const handleChange = (e, index) => {
     const value = e.target.value;
 
@@ -40,20 +41,35 @@ export default function Otp() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/verifyotp`,
-        { fullOtp }, {
+        { fullOtp },
+        {
           headers: {
             "Content-Type": "application/json",
           },
           withCredentials: true,
         }
       );
+
       console.log("OTP verification response:", res.data);
       if (res.data.success) {
-        return setError(res.data);
+        Cookies.set("yktr", res.data.token, {
+          expires: 1, // days
+          path: "/",
+          sameSite: "Lax", // or 'None' if needed
+          secure: true, // uncomment for HTTPS
+        });
+       
+        setError(res.data);
+        setTimeout(() => {
+           navigate("/ResetPassword");
+        }, 2000);
+        return
       }
     } catch (error) {
       console.error("Error verifying OTP:", error);
-      setError(error.response?.data.message || "An error occurred while verifying OTP");
+      setError(
+        error.response?.data.message || "An error occurred while verifying OTP"
+      );
     }
   };
 
@@ -100,7 +116,12 @@ export default function Otp() {
         </button>
         <p className="text-sm text-gray-500">
           Didn't receive the code?{" "}
-          <button className="text-blue-600 hover:underline">Resend</button>
+          <button
+            onClick={() => navigate("/ForgetPassword")}
+            className="text-blue-600 hover:underline"
+          >
+            Resend
+          </button>
         </p>
       </div>
     </div>
