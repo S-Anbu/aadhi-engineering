@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { Eye, EyeOff, Lock } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [alert, setAlert] = useState(null);
-
+const Navigate = useNavigate();
   const handleReset = async (e) => {
     e.preventDefault();
 
@@ -40,6 +40,9 @@ const ResetPassword = () => {
 
       if (res.data.success) {
         setAlert({ type: "success", msg: "Password reset successful!" });
+        setTimeout(() => {
+          Navigate("/login"); // Redirect to login after success
+        }, 2000);
       } else {
         setAlert({
           type: "error",
@@ -48,7 +51,7 @@ const ResetPassword = () => {
       }
     } catch (err) {
       console.error(err);
-      setAlert({ type: "error", msg: "Server error. Please try again." });
+      setAlert({ type: "error", msg: err.response?.data?.message || "Server error." });
     }
   };
 

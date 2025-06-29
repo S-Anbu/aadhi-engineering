@@ -55,7 +55,7 @@ export default function Otp() {
         Cookies.set("yktr", res.data.token, {
           expires: 1, // days
           path: "/",
-          sameSite: "Lax", // or 'None' if needed
+          sameSite: "none", // or 'None' if needed
           secure: true, // uncomment for HTTPS
         });
        

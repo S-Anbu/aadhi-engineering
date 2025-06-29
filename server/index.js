@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 4000;
 const pricRroute= require('./Routes/priceRoutes.js');
 const login= require('./Routes/adminRoutes.js');
 const Upload= require('./Routes/uploadRoutes.js');
+const Reset= require('./Routes/resetpassRoutes.js');
 
 dbConnect()
 
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', pricRroute);
 app.use('/api', login);
 app.use('/api', Upload);
+app.use('/api', Reset);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
