@@ -125,17 +125,30 @@ const Login = () => {
                 const res = await axios.post(
                   `${import.meta.env.VITE_BACKEND_URL}/api/googlelogin`,
                   { token: credentialResponse.credential },
-                  { withCredentials: true }
+                  {
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                  }
                 );
+console.log(res.data);
 
                 if (res.status === 200) {
+                  setAlert(res.data);
+                  if (!res.data.token) {
+                    throw new Error("Token not received");
+                  }
                   Cookies.set("_wtll", res.data.token, {
                     expires: 7,
                     path: "/",
                     sameSite: "Lax",
                     secure: true,
                   });
-                  navigate("/ImageUploader");
+                  setTimeout(() => {
+                    
+                    navigate("/ImageUploader");
+                  }, 1500);
                 }
               } catch (error) {
                 setAlert(

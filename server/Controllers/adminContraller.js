@@ -141,7 +141,7 @@ const googlelogin = async (req, res) => {
     const jwtToken = jwt.sign(
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "1h" }
     );
 
     return res.status(200).json({
