@@ -27,7 +27,7 @@ const ImageUploader = () => {
     };
 
     fetchDashboardData();
-  }, [navigate]);
+  }, []);
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);

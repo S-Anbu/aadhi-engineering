@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 
-
 const login = async (req, res) => {
   const { password, userId } = req.body;
   // console.log(userId, password);
@@ -90,7 +89,7 @@ const upload = async (req, res) => {
   } catch (error) {}
 };
 
-const islogin = async (req, res, ) => {
+const islogin = async (req, res) => {
   const token = req.cookies._wtll;
   if (!token) {
     return res.status(401).json({
@@ -112,9 +111,7 @@ const islogin = async (req, res, ) => {
       message: "Invalid Token",
     });
   }
-}
-
-
+};
 
 const googlelogin = async (req, res) => {
   const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -143,7 +140,11 @@ const googlelogin = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-
+    res.cookie("_wtll", jwtToken, {
+      maxAge: 60 * 60 * 1000, // 1 hour
+      secure: true,
+      sameSite: "None",
+    });
     return res.status(200).json({
       success: true,
       message: "Login Successful",
@@ -155,4 +156,4 @@ const googlelogin = async (req, res) => {
   }
 };
 
-module.exports = { login, upload ,islogin,googlelogin};
+module.exports = { login, upload, islogin, googlelogin };
