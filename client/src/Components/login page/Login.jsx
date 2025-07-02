@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const [userId, setUserId] = useState("");
@@ -59,7 +60,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[80vh] md:h-[90vh]  bg-gray-100">
+    <div className="flex items-center justify-center h-[90vh] md:h-[90vh]  bg-gray-100">
       <div className="w-full max-w-md p-6 shadow-lg rounded-2xl bg-white">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Admin Login
@@ -112,6 +113,41 @@ const Login = () => {
             {alert.message || alert}
           </p>
         )}
+        <div className="text-center pt-2">(or)</div>
+        <div className="flex justify-center my-4">
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              if (!credentialResponse.credential) {
+                setAlert("Google login failed: No credential received");
+                return;
+              }
+              try {
+                const res = await axios.post(
+                  `${import.meta.env.VITE_BACKEND_URL}/api/googlelogin`,
+                  { token: credentialResponse.credential },
+                  { withCredentials: true }
+                );
+
+                if (res.status === 200) {
+                  Cookies.set("_wtll", res.data.token, {
+                    expires: 7,
+                    // path: "/",
+                    // sameSite: "Lax",
+                    // secure: true,
+                  });
+                  navigate("/ImageUploader");
+                }
+              } catch (error) {
+                setAlert(
+                  error.response?.data?.message || "Google login failed"
+                );
+              }
+            }}
+            onError={() => {
+              setAlert("Google login failed");
+            }}
+          />
+        </div>
 
         <div className="text-center mt-4">
           <Link to="/ForgetPassword" className="text-blue-500 hover:underline">

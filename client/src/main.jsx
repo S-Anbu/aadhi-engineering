@@ -5,7 +5,12 @@ import './index.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+
 
 createRoot(document.getElementById('root')).render(
-    <App />
+    <GoogleOAuthProvider clientId={`${import.meta.env.VITE_CLIENT_ID}`}>
+        <App />
+    </GoogleOAuthProvider>
 )

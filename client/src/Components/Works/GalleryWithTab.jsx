@@ -64,7 +64,7 @@ export function GalleryWithTab() {
   ];
 
   return (
-    <div id="works" className="flex items-center justify-center h-[80vh] md:h-[90vh]">
+    <div id="works" className="flex items-center justify-center ">
           <Tabs value={activeTab} className="p-4 pt-20" >
       <TabsHeader>
         {data.map(({ label, value }) => (
@@ -72,7 +72,7 @@ export function GalleryWithTab() {
             key={value} 
             value={value}
             onClick={() => setActiveTab(value)} 
-            className="text-gray-800 font-semibold hover:bg-gray-200  p-4"
+            className="text-gray-800 font-semibold hover:bg-gray-200 p-1"
           >
             {label}
           </Tab>
@@ -91,7 +91,7 @@ export function GalleryWithTab() {
                   images.map(({ imageLink }, index) => (
                     <div key={index}>
                       <img
-                        className=" h-40 md:h-80 w-full max-w-full rounded-lg object-cover object-center"
+                        className=" h-40 md:h-64 w-full max-w-full rounded-lg object-cover object-center"
                         src={imageLink}
                         alt={`${value} work sample ${index}`}
                         

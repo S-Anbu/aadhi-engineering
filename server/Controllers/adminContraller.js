@@ -3,7 +3,8 @@ dotenv.config();
 const { adminModel } = require("../Module/adminModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
+const { OAuth2Client } = require("google-auth-library");
+
 
 const login = async (req, res) => {
   const { password, userId } = req.body;
@@ -113,4 +114,45 @@ const islogin = async (req, res, ) => {
   }
 }
 
-module.exports = { login, upload ,islogin};
+
+
+const googlelogin = async (req, res) => {
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+  const { token } = req.body;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload(); // contains email, name, picture, etc.
+    const { email } = payload;
+
+    // Check if user exists in DB
+    let user = await adminModel.findOne({ email });
+
+    // If user doesn't exist, create a new one
+    if (!user) {
+      return res.status(400).json({ message: "Invalid user" });
+    }
+
+    // Generate your own JWT token
+    const jwtToken = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Login Successful",
+      token: jwtToken,
+    });
+  } catch (error) {
+    console.error("Google login error:", error.message);
+    res.status(400).json({ message: "Google login failed" });
+  }
+};
+
+module.exports = { login, upload ,islogin,googlelogin};
