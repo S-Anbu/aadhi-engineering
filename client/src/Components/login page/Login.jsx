@@ -131,9 +131,9 @@ const Login = () => {
                 if (res.status === 200) {
                   Cookies.set("_wtll", res.data.token, {
                     expires: 7,
-                    // path: "/",
-                    // sameSite: "Lax",
-                    // secure: true,
+                    path: "/",
+                    sameSite: "Lax",
+                    secure: true,
                   });
                   navigate("/ImageUploader");
                 }

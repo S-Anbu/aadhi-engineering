@@ -9,11 +9,6 @@ export default defineConfig({
     chunkSizeWarningLimit: 1600,
     outDir: 'dist',
   },
-  server: {
-    headers: {
-      'Cross-Origin-Opener-Policy': '',
-      'Cross-Origin-Embedder-Policy': '',
-    }
-  }
+  
 
 })
