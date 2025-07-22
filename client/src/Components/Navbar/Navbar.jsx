@@ -50,12 +50,12 @@ const navListMenuItems = [
 
 ];
 
-function NavListMenu() {
+function NavListMenu({ setOpenNav }) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const renderItems = navListMenuItems.map(
         ({ icon, title, description, href }, key) => (
-            <a href={href} key={key}>
+            <a href={href} key={key} onClick={() => setOpenNav(false)}>
                 <MenuItem className="flex items-center gap-3 rounded-lg">
                     <div className="flex items-center justify-center rounded-lg  !bg-blue-gray-50 p-2 ">
                         {" "}
@@ -140,7 +140,7 @@ function NavList({ setOpenNav }) {
                 <ListItem className="xl:text-sm text-xs flex items-center px-1 py-2   focus:text-yellow-800 " onClick={() => setOpenNav(false)} >HOME</ListItem>
                 </Link>
             </Typography>
-            <NavListMenu />
+            <NavListMenu setOpenNav={setOpenNav} />
             <Typography
                
                 variant="small"
