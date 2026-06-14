@@ -10,7 +10,7 @@ import ImageUploader from "./Components/Upload/ImageUploader";
 import { GalleryWithTab } from "./Components/Works/GalleryWithTab";
 import Otp from "./Components/OTP/Otp";
 import ResetPassword from "./Components/Reset Password/ResetPassword";
-
+import Quotations from "./Components/Quotes/Quotations";
 function App() {
   return (
     <>
@@ -18,13 +18,13 @@ function App() {
         <NavbarIndex /> {/* Navbar should be outside Routes */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Login" element={<Login/>} />
           <Route path="/Gallery" element={<GalleryWithTab />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/ImageUploader" element={<ImageUploader />} />
           <Route path="/ResetPassword" element={<ResetPassword />} />
           <Route path="/otp" element={<Otp />} />
-
+          <Route path="/Quotations" element={<Quotations />} />
         </Routes>
         
         <Footer />

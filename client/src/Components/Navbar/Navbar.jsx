@@ -183,11 +183,11 @@ function NavList({ setOpenNav }) {
                 color="blue-gray"
                 className="font-semibold"
             >
-                <a href="#price">
+                <Link to={'/Quotations'}>
                     <ListItem className="xl:text-sm text-xs flex items-center px-1  py-2  focus:text-yellow-800 uppercase" onClick={() => setOpenNav(false)}>
-                        Price details
+                        Quotations
                     </ListItem>
-                </a>
+                </Link>
             </Typography>
             <Typography
                 

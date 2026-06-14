@@ -99,7 +99,7 @@ const ImageUploader = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-14 min-h-[80vh] px-4">
+    <div className="flex items-center justify-center mt-14 min-h-[85vh] px-4">
       <div className="w-full max-w-xl bg-white shadow-lg rounded-2xl p-8 flex flex-col items-center">
         <h2 className="text-2xl font-semibold mb-6 text-center">Upload Image</h2>
 

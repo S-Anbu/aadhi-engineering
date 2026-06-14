@@ -64,7 +64,7 @@ export function GalleryWithTab() {
   ];
 
   return (
-    <div id="works" className="flex items-center justify-center ">
+    <div id="works" className="flex items-center justify-center min-h-[90vh]">
           <Tabs value={activeTab} className="p-4 pt-20" >
       <TabsHeader>
         {data.map(({ label, value }) => (
@@ -91,7 +91,7 @@ export function GalleryWithTab() {
                   images.map(({ imageLink }, index) => (
                     <div key={index}>
                       <img
-                        className=" h-40 md:h-64 w-full max-w-full rounded-lg object-cover object-center"
+                        className=" h-30 md:h-64 w-full max-w-full rounded-lg object-cover object-center"
                         src={imageLink}
                         alt={`${value} work sample ${index}`}
                         
